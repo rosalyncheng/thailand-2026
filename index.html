@@ -83,7 +83,7 @@ h2::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--
 .hrs{font-size:.74rem;color:var(--walnut);background:var(--linen2);border-radius:10px;padding:3px 8px;line-height:1.35}
 .map{font-size:.76rem;text-decoration:none;background:#e7ecdc;color:var(--olive);padding:2px 9px;border-radius:999px;white-space:nowrap}
 .warn{font-size:.78rem;color:#b06f6e;background:#f6e6e4;border-radius:8px;padding:3px 8px;margin-top:6px;display:inline-block}
-.rsv{display:inline-flex;align-items:center;gap:6px;background:none;border:2px solid #c0504d;color:#c0504d;font-family:Huninn;font-size:.8rem;padding:3px 10px;border-radius:10px;white-space:nowrap}
+.rsv{margin-top:6px;display:inline-flex;align-items:center;gap:6px;background:none;border:2px solid #c0504d;color:#c0504d;font-family:Huninn;font-size:.8rem;padding:3px 10px;border-radius:10px;white-space:nowrap}
 .rsv b{font-family:"Segoe UI";font-size:1.05rem;color:#c0504d;letter-spacing:.04em}
 .row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
 .tag{font-size:.72rem;padding:2px 9px;border-radius:999px;color:#fff;white-space:nowrap}
@@ -429,10 +429,10 @@ const vsave=()=>{try{localStorage.setItem(DK,JSON.stringify(VD))}catch(_){}};
 const ikey=(prefix,it)=>prefix+"|"+it[3];
 function itemHTML(it,key){const [ic,cat,zh,en,th,tr,fl,map,hrs,warn,rsv,who]=it;const dn=!!VD[key];
  const tags=tr.map(t=>`<span class="tag ${T[t][0]}">${T[t][1]}</span>`).join("")+(fl.includes("m")?'<span class="tag t-must">★ 必去</span>':"")+(fl.includes("b")?'<span class="tag t-booked">✔ 已訂位</span>':"")+(fl.includes("r")?'<span class="tag t-book">可考慮訂位</span>':"");
- const side=(hrs||map||rsv)?`<div class="iside">${hrs?`<span class="hrs">🕒 ${esc(hrs)}</span>`:""}${map?`<a class="map" href="${map}" target="_blank" rel="noopener">📍 Google Maps</a>`:""}${rsv?`<div class="rsv">🍽 已訂位 Reservation <b>${esc(rsv)}</b></div>`:""}</div>`:"";
+ const side=(hrs||map)?`<div class="iside">${hrs?`<span class="hrs">🕒 ${esc(hrs)}</span>`:""}${map?`<a class="map" href="${map}" target="_blank" rel="noopener">📍 Google Maps</a>`:""}</div>`:"";
  return `<li><span class="dot" aria-hidden="true">${ic}</span><div class="item${dn?" done":""}" data-k="${esc(key)}"><div class="ihead">
  <button type="button" class="done-btn" aria-pressed="${dn}" aria-label="標記完成 Mark as done：${esc(en)}">${dn?"✓":""}</button>
- <div class="imain"><div class="cat">${esc(cat)}</div><div class="name">${esc(en)}<span class="sep">|</span><span class="zh">${esc(zh)}</span></div>${th?`<div class="th">${th}</div>`:""}</div>${side}</div>
+ <div class="imain"><div class="cat">${esc(cat)}</div><div class="name">${esc(en)}<span class="sep">|</span><span class="zh">${esc(zh)}</span></div>${th?`<div class="th">${th}</div>`:""}${rsv?`<div class="rsv">🍽 已訂位 Reservation <b>${esc(rsv)}</b></div>`:""}</div>${side}</div>
  ${who?`<div class="row">${who.map(w=>`<span class="tag" style="background:${PC[w]||"#b7a8c6"}">${esc(w)}</span>`).join("")}</div>`:""}
  ${warn?`<div class="warn">${esc(warn)}</div>`:""}<div class="row">${tags}</div></div></li>`}
 const tabs=document.getElementById("dayTabs"),panel=document.getElementById("dayPanel");
