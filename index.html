@@ -63,6 +63,7 @@ h2::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--
 .daybtn[aria-selected=true]{background:var(--walnut);color:var(--linen)}
 .daybtn[aria-selected=true] small{color:var(--linen2)}
 .daybtn.cnx{border-bottom:4px solid var(--sage)}.daybtn.bkk{border-bottom:4px solid var(--pink)}
+.daybtn.both{border-bottom:4px solid #9fb8c8}.daybtn.both[aria-selected=true]{border-bottom-color:#6f8fb0}
 .daybtn:focus-visible{outline:3px solid var(--sky)}
 .dayhead{display:flex;gap:12px;align-items:center;margin-bottom:6px}
 .dayhead svg{flex:none;width:70px;height:70px}
@@ -316,7 +317,7 @@ const days=[
  ["🍛","Dinner · 備案","Hong Tauw Inn 泰菜","Hong Tauw Inn","",["walk"],"",M("JamVPC383xL2zukt8"),"每日 11:00–22:00",""],
  ["💆","Massage","Sense Garden 按摩","Sense Garden Massage & Spa","",["taxi"],"r",M("92HGmcGPau2SW1qv7"),"每日 11:00–22:00",""],
  ["🍚","Late-Night","郵局豬腳飯","Post Office Pork Rice","ขาหมูไปรษณีย์",["taxi"],"",M("BdzJJmPsuPwdtPgP8"),"週一～五 17:00–23:00・週六日公休",""]]},
-{d:"12/22",w:"二 Tue",city:"cnx",title:"清邁 → 曼谷・暹羅區",en:"Chiang Mai → Bangkok · Siam",art:"plane",
+{d:"12/22",w:"二 Tue",city:"both",title:"清邁 → 曼谷・暹羅區",en:"Chiang Mai → Bangkok · Siam",art:"plane",
  note:"12PM 退房 → 前往機場搭 15:25 班機。抵達 BKK 約 5PM，帶行李直接 Grab 到飯店。凱賓斯基與 Siam Paragon 相連，晚上逛街都可步行。",
  items:[
  ["🍜","Breakfast","Thana Ocha 米粉湯","Thana Ocha Noodle","ธนาโอชา",["taxi"],"",M("3mYmJh4pbDAoht7d9"),"每日 08:00–17:00",""],
@@ -365,7 +366,7 @@ const days=[
  items:[
  ["🍳","Morning","Charoen Saeng 豬腳飯（是隆）","Charoen Saeng Silom","เจริญแสง สีลม",["bts"],"",M("hc6WxYkE3zQwRCTH9"),"每日 07:00–13:00・常提早賣完",""],
  ["🧳","12:00","換飯店 → KROMO","Hotel change → KROMO","",["grab"],"","","",""],
- ["🍜","Lunch","lay lao 寮式料理（是隆）","lay lao - Silom","เล ลาว",["bts","walk"],"",M("7LsoM6bQHhK4D9cQ8"),"每日 10:30–23:00",""],
+ ["🍜","Lunch","lay lao 寮式料理（是隆）","lay lao - Silom","เล ลาว",["bts","walk"],"r",M("7LsoM6bQHhK4D9cQ8"),"每日 10:30–23:00",""],
  ["☕","Coffee","夏日咖啡（Central Park 店）","The Summer Coffee - Central Park","",["bts","walk"],"",M("SSDtW869hiBDNA3q6"),"每日 10:00–22:00",""],
  ["💆","Massage","AURASOL 招牌泰式按摩","AURASOL - Signature Thai Massage","",["grab"],"r",M("sfZqhAhJhRQnh53k8"),"每日 10:00–24:00",""],
  ["🍲","Dinner","王春盛 牛肉火鍋","Heng Chun Seng","เฮ้งชุนเส็ง",["grab"],"",M("9KZZtyZFWtfdxxZ76"),"週一～五 07:20–20:30・週六日 07:20–16:00",""],
@@ -449,7 +450,7 @@ function itemHTML(it,key){const [ic,cat,zh,en,th,tr,fl,map,hrs,warn,rsv,who]=it;
  <div class="ifoot"><div class="row">${tags}</div>${side}</div></div></li>`}
 const tabs=document.getElementById("dayTabs"),panel=document.getElementById("dayPanel");
 days.forEach((x,i)=>{const b=document.createElement("button");b.type="button";b.className="daybtn "+x.city;b.setAttribute("role","tab");
- b.innerHTML=`<b>${x.d}</b><small>${x.w}<br>${x.city=="cnx"?"清邁<br>Chiang Mai":"曼谷<br>Bangkok"}</small>`;b.addEventListener("click",()=>show(i));tabs.appendChild(b)});
+ b.innerHTML=`<b>${x.d}</b><small>${x.w}<br>${x.city=="cnx"?"清邁<br>Chiang Mai":x.city=="bkk"?"曼谷<br>Bangkok":"清邁/曼谷<br>CNX/BKK"}</small>`;b.addEventListener("click",()=>show(i));tabs.appendChild(b)});
 let cur=0;
 function dp(){const x=days[cur],n=x.items.filter(it=>VD[ikey(x.d,it)]).length;const el=document.getElementById("dprog");if(el)el.textContent=`✓ 今日完成 ${n} / ${x.items.length} done`}
 function show(i){cur=i;const x=days[i];[...tabs.children].forEach((b,j)=>b.setAttribute("aria-selected",j===i));
