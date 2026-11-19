@@ -429,12 +429,13 @@ const vsave=()=>{try{localStorage.setItem(DK,JSON.stringify(VD))}catch(_){}};
 const ikey=(prefix,it)=>prefix+"|"+it[3];
 function itemHTML(it,key){const [ic,cat,zh,en,th,tr,fl,map,hrs,warn,rsv,who]=it;const dn=!!VD[key];
  const tags=tr.map(t=>`<span class="tag ${T[t][0]}">${T[t][1]}</span>`).join("")+(fl.includes("m")?'<span class="tag t-must">★ 必去</span>':"")+(fl.includes("b")?'<span class="tag t-booked">✔ 已訂位</span>':"")+(fl.includes("r")?'<span class="tag t-book">可考慮訂位</span>':"");
- const side=(hrs||map)?`<div class="iside">${hrs?`<span class="hrs">🕒 ${esc(hrs)}</span>`:""}${map?`<a class="map" href="${map}" target="_blank" rel="noopener">📍 Google Maps</a>`:""}</div>`:"";
+ const side=(hrs||map)?`<div class="iside">${map?`<a class="map" href="${map}" target="_blank" rel="noopener">📍 Google Maps</a>`:""}${hrs?`<span class="hrs">🕒 ${esc(hrs)}</span>`:""}</div>`:"";
  return `<li><span class="dot" aria-hidden="true">${ic}</span><div class="item${dn?" done":""}" data-k="${esc(key)}"><div class="ihead">
  <button type="button" class="done-btn" aria-pressed="${dn}" aria-label="標記完成 Mark as done：${esc(en)}">${dn?"✓":""}</button>
- <div class="imain"><div class="cat">${esc(cat)}</div><div class="name">${esc(en)}<span class="sep">|</span><span class="zh">${esc(zh)}</span></div>${th?`<div class="th">${th}</div>`:""}${rsv?`<div class="rsv">🍽 已訂位 Reservation <b>${esc(rsv)}</b></div>`:""}</div>${side}</div>
+ <div class="imain"><div class="cat">${esc(cat)}</div><div class="name">${esc(en)}<span class="sep">|</span><span class="zh">${esc(zh)}</span></div>${th?`<div class="th">${th}</div>`:""}${rsv?`<div class="rsv">🍽 已訂位 Reservation <b>${esc(rsv)}</b></div>`:""}</div></div>
  ${who?`<div class="row">${who.map(w=>`<span class="tag" style="background:${PC[w]||"#b7a8c6"}">${esc(w)}</span>`).join("")}</div>`:""}
- ${warn?`<div class="warn">${esc(warn)}</div>`:""}<div class="row">${tags}</div></div></li>`}
+ ${warn?`<div class="warn">${esc(warn)}</div>`:""}
+ <div class="ifoot"><div class="row">${tags}</div>${side}</div></div></li>`}
 const tabs=document.getElementById("dayTabs"),panel=document.getElementById("dayPanel");
 days.forEach((x,i)=>{const b=document.createElement("button");b.type="button";b.className="daybtn "+x.city;b.setAttribute("role","tab");
  b.innerHTML=`<b>${x.d}</b><small>${x.w}<br>${x.city=="cnx"?"清邁<br>Chiang Mai":"曼谷<br>Bangkok"}</small>`;b.addEventListener("click",()=>show(i));tabs.appendChild(b)});
