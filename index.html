@@ -92,7 +92,7 @@ h2::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--
 .rsv b{font-family:"Segoe UI";font-size:1.05rem;color:#c0504d;letter-spacing:.04em}
 .row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
 .tag{font-size:.72rem;padding:2px 9px;border-radius:999px;color:#fff;white-space:nowrap}
-.t-taxi{background:#c9a85c}.t-grab{background:#7fa57a}.t-bts{background:#8fae5e}.t-mrt{background:#6f8fb0}.t-walk{background:#b8a48e}.t-boat{background:#8fb5c0}.t-fly{background:#a99ac0}
+.t-car{background:#c9a85c}.t-grab{background:#7fa57a}.t-bts{background:#8fae5e}.t-mrt{background:#6f8fb0}.t-walk{background:#b8a48e}.t-boat{background:#8fb5c0}.t-fly{background:#a99ac0}
 .t-must{background:#c98b8a}.t-booked{background:var(--walnut)}.t-book{background:transparent;color:var(--walnut);border:1.5px dashed var(--walnut)}
 .legend{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
 .done-btn{flex:none;width:26px;height:26px;border-radius:8px;border:2px solid var(--olive);background:var(--paper);cursor:pointer;color:#fff;font-size:14px;display:grid;place-items:center;margin-top:2px}
@@ -209,7 +209,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:30px 0 50px}
 <section id="itinerary">
 <h2>每日行程 <span class="en">Daily Itinerary</span></h2>
 <div class="legend">
-  <span class="tag t-taxi">🚕 Taxi</span><span class="tag t-grab">📱 Grab 叫車</span><span class="tag t-bts">🚝 BTS 空鐵</span><span class="tag t-mrt">🚇 MRT 地鐵</span><span class="tag t-boat">⛴ 船 Boat</span><span class="tag t-walk">🚶 步行 Walk</span><span class="tag t-fly">✈ 航班</span>
+  <span class="tag t-car">🚕 Car</span><span class="tag t-grab">📱 Grab 叫車</span><span class="tag t-bts">🚝 BTS 空鐵</span><span class="tag t-mrt">🚇 MRT 地鐵</span><span class="tag t-boat">⛴ 船 Boat</span><span class="tag t-walk">🚶 步行 Walk</span><span class="tag t-fly">✈ 航班</span>
   <span class="tag t-must">★ 必去</span><span class="tag t-booked">✔ 已訂位</span><span class="tag t-book">可考慮訂位</span>
 </div>
 <div class="days" role="tablist" id="dayTabs" aria-label="日期選擇"></div>
@@ -264,68 +264,71 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:30px 0 50px}
 <script>
 (function(){
 const M=s=>"https://maps.app.goo.gl/"+s+"?g_st=ic";
-const T={taxi:["t-taxi","🚕 Taxi"],grab:["t-grab","📱 Grab"],bts:["t-bts","🚝 BTS"],mrt:["t-mrt","🚇 MRT"],walk:["t-walk","🚶 步行"],boat:["t-boat","⛴ 船"],fly:["t-fly","✈ 航班"]};
+const T={car:["t-car","🚙 Car"],grab:["t-grab","📱 Grab"],bts:["t-bts","🚝 BTS"],mrt:["t-mrt","🚇 MRT"],walk:["t-walk","🚶 步行"],boat:["t-boat","⛴ 船"],fly:["t-fly","✈ 航班"]};
 const PC={"Rose":"#d9a9a8","Darian":"#9fb8c8","Noreen & Peter":"#9fae8c","Peter & Noreen":"#9fae8c","全員 All":"#bfa77a"};
 const days=[
 {d:"12/19",w:"六 Sat",city:"cnx",title:"寧曼路",en:"Nimman",art:"lantern",
- note:"清邁以 Taxi／Grab 移動為主；古城內景點相近可步行。中午前後抵達，先寄放行李（3PM 入住）。寧曼路一帶咖啡廳、選物店都可步行串連；去程、回程搭 Taxi。",
+ note:"清邁以 Grab 移動為主；古城內景點相近可步行。中午前後抵達，先寄放行李（3PM 入住）。寧曼路一帶咖啡廳、選物店都可步行串連；去程、回程搭 Grab。",
  items:[
- ["✈","Arrival","清邁國際機場","Chiang Mai Int'l Airport (CNX)","ท่าอากาศยานเชียงใหม่",["fly","taxi"],"","","抵達 10:30 左右",""],
- ["🍜","Lunch #1","Maesai 泰北咖哩麵","Khao Soi Mae Sai","ข้าวซอยแม่สาย",["taxi"],"m",M("bxviQtyDZDmfuLNt5"),"週一～六 08:00–16:00・週日公休",""],
- ["🍜","Lunch #2","寧曼咖哩麵","Kao Soy Nimman","ข้าวซอยนิมมาน",["taxi"],"",M("1U8YusvwUWeXTPVP9"),"每日 10:00–21:00",""],
+ ["✈","Arrival","清邁國際機場","Chiang Mai Int'l Airport (CNX)","ท่าอากาศยานเชียงใหม่",["fly"],"","","抵達 10:30 左右",""],
+ ["🚙","Airport Pickup", "機場接機","",["car"],"","","",""],
+ ["🍜","Lunch #1","Maesai 泰北咖哩麵","Khao Soi Mae Sai","ข้าวซอยแม่สาย",["grav"],"m",M("bxviQtyDZDmfuLNt5"),"週一～六 08:00–16:00・週日公休",""],
+ ["🍜","Lunch #2","寧曼咖哩麵","Kao Soy Nimman","ข้าวซอยนิมมาน",["grab"],"",M("1U8YusvwUWeXTPVP9"),"每日 10:00–21:00",""],
+ ["☕","Dessert/Cafe","Roast8ry 旗艦店","Roast8ry Coffee Flagship Store","",["grab"],"",M("BEsnVwnxUvFynBsbA"),"每日 08:00–17:00",""],
+ ["☕","Dessert/Cafe","Ristr8to 本店","Ristr8to Original","",["walk"],"",M("wxfFZwFFJ6QfakPC9"),"每日 07:00–17:30",""],
+ ["💆","Hair Wash","Porjai 洗頭","Porjai Express Hair wash","",["walk"],"",M("Zwa4Xbm7o1k2BTrz8"),"週一 8:00–1:00・週三～日 8:00–1:00・週二公休",""],
  ["🛍","Shopping","One Nimman 購物中心","One Nimman","วันนิมมาน",["walk"],"",M("crgJC1jCyzKw6Mn19"),"每日 11:00–21:00（夜市區至 22:00）",""],
  ["🛍","Shopping","PLAYWORKS 選物店","PLAYWORKS SHOP","",["walk"],"",M("pDztZQ9P9WhYe2u28"),"每日 09:00–22:00",""],
  ["🛍","Shopping","Marmoris（One Nimman）","Marmoris Onenimman Chiangmai","",["walk"],"",M("1CCakPf3fQSxMvQr9"),"",""],
- ["☕","Dessert/Cafe","Roast8ry 旗艦店","Roast8ry Coffee Flagship Store","",["taxi"],"",M("BEsnVwnxUvFynBsbA"),"每日 08:00–17:00",""],
- ["☕","Dessert/Cafe","Ristr8to 本店","Ristr8to Original","",["walk"],"",M("wxfFZwFFJ6QfakPC9"),"每日 07:00–17:30",""],
  ["🍰","Dessert/Cafe","Lot of Taste 咖啡","Lot of Taste","",["walk"],"",M("RmHfwzA553FrQndf8"),"每日 08:00–22:00",""],
  ["🧋","Dessert/Cafe","Charlie 泰式奶茶","Charlie Thai Tea","",["walk"],"","","",""],
  ["🛍","Shopping","Niap.cnx 選物店","Niap.cnx","",["walk"],"",M("iAtXqK15y3MGWxWe6"),"",""],
  ["🛍","Shopping","Copenn 香氛（清邁）","Copenn Chiangmai","",["walk"],"",M("zLyjSgMXznoadvVg6"),"每日 10:00–18:00",""],
- ["🍛","Dinner","Huen Phen 泰北菜（寧曼店）","Huen Phen Restaurant, Nimmanhemin","เฮือนเพ็ญ",["taxi"],"r",M("EfZaixdtrruV688o6"),"每日 09:00–22:00",""],
+ ["🍛","Dinner","Huen Phen 泰北菜（寧曼店）","Huen Phen Restaurant, Nimmanhemin","เฮือนเพ็ญ",["grab"],"r",M("EfZaixdtrruV688o6"),"每日 09:00–22:00",""],
  ["🍛","Dinner · 備案","Hong Tauw Inn 泰菜","Hong Tauw Inn","",["walk"],"",M("JamVPC383xL2zukt8"),"每日 11:00–22:00",""],
- ["💆","Massage","Sense Garden 按摩","Sense Garden Massage & Spa","",["taxi"],"r",M("92HGmcGPau2SW1qv7"),"每日 11:00–22:00",""]]},
+ ["💆","Massage","Sense Garden 按摩","Sense Garden Massage & Spa","",["grab"],"r",M("92HGmcGPau2SW1qv7"),"每日 11:00–22:00",""]]},
 {d:"12/20",w:"日 Sun",city:"cnx",title:"真心市集＋悟孟寺＋班康瓦藝術村",en:"Jing Jai Market + Wat Umong + Baan Kang Wat",art:"temple",
- note:"真心市集只在週末開，早上先去；之後 Taxi 到蘇安達寺，悟孟寺，與班康瓦藝術村相鄰可Ｔaxi或步行。Doi Kham 在山上，建議 Taxi 來回。",
+ note:"真心市集只在週末開，早上先去；之後 Grab 到蘇安達寺，悟孟寺，與班康瓦藝術村相鄰可Grab或步行。Doi Kham 在山上，建議 Grab 來回。",
  items:[
- ["🧺","Morning","真心市集","Jing Jai Market","ตลาดจริงใจ",["taxi"],"m",M("bjSEbQTbWJ1mQCn5A"),"週六、日 06:30–15:00",""],
- ["🛕","Sightseeing","蘇安達寺（花園寺）","Wat Suan Dok","วัดสวนดอก",["taxi"],"m",M("ZsphanK8FioPR49P7"),"每日 06:00–18:00",""],
- ["🍲","Lunch","Changphuak 泰式壽喜燒","Suki Changphuak","สุกี้ช้างเผือก",["taxi"],"",M("JnFxXHitLa9TwAse7"),"每日 09:00–24:00",""],
- ["🛕","Sightseeing","悟孟寺（隧道寺）","Wat Umong Suan Putthatham","วัดอุโมงค์ สวนพุทธธรรม",["taxi"],"m",M("epXtupD3uu97LpP49"),"每日 04:00–20:00",""],
+ ["🧺","Morning","真心市集","Jing Jai Market","ตลาดจริงใจ",["grab"],"m",M("bjSEbQTbWJ1mQCn5A"),"週六、日 06:30–15:00",""],
+ ["🛕","Sightseeing","蘇安達寺（花園寺）","Wat Suan Dok","วัดสวนดอก",["grab"],"m",M("ZsphanK8FioPR49P7"),"每日 06:00–18:00",""],
+ ["🍲","Lunch","Changphuak 泰式壽喜燒","Suki Changphuak","สุกี้ช้างเผือก",["grab"],"",M("JnFxXHitLa9TwAse7"),"每日 09:00–24:00",""],
+ ["🛕","Sightseeing","悟孟寺（隧道寺）","Wat Umong Suan Putthatham","วัดอุโมงค์ สวนพุทธธรรม",["grab"],"m",M("epXtupD3uu97LpP49"),"每日 04:00–20:00",""],
  ["🎨","Sightseeing","班康瓦藝術村","Baan Kang Wat (Art Village)","บ้านข้างวัด",["walk"],"m",M("KAGncMqj4tqHWJHM9"),"週二～日 10:00–18:00・週一公休",""],
  ["🍜","Food","Yook Samai 金麵餐廳","Yook Samai","ยุคสมัย",["walk"],"",M("K1TtaPUHNM4hbPgm8"),"週二～日 10:00–18:00・週一公休",""],
  ["🛍","Shopping","ENOUGH FOR LIFE 選物店","ENOUGH FOR LIFE","",["walk"],"",M("1qFbiKqQEbAc5w9Z6"),"週二～日 11:00–17:30・週一公休",""],
- ["⛰","Sightseeing","素帖山金山寺","Wat Phra That Doi Kham","วัดพระธาตุดอยคำ",["taxi"],"m",M("QQMhkFA63sLCxFHk9"),"每日 06:00–18:00",""],
- ["💆","Massage","Amora 按摩","Amora Massage","",["taxi"],"r",M("puP1CLqtwVtrFMHy6"),"每日 10:00–21:00",""],
- ["🍛","Dinner","Pakorn's 廚房","Pakorn's Kitchen","",["taxi"],"r",M("Vj51DMEXL32qLa9e7"),"週日～五 14:00–22:00・週六公休",""],
- ["🍛","Dinner · 備案","KitiPanit 餐廳","KitiPanit","กิติพาณิชย์",["taxi"],"r",M("asFcx6NHuyCVuqjSA"),"11:30–15:00、17:00–22:00",""],
- ["🍸","Bar","Bar.San. 酒吧","Bar.San.","",["taxi"],"",M("ucyTMGtWSoXZw1VP9"),"每日 18:00–24:00",""]]},
+ ["⛰","Sightseeing","素帖山金山寺","Wat Phra That Doi Kham","วัดพระธาตุดอยคำ",["grab"],"m",M("QQMhkFA63sLCxFHk9"),"每日 06:00–18:00",""],
+ ["💆","Massage","Amora 按摩","Amora Massage","",["grab"],"r",M("puP1CLqtwVtrFMHy6"),"每日 10:00–21:00",""],
+ ["🍛","Dinner","Pakorn's 廚房","Pakorn's Kitchen","",["grab"],"r",M("Vj51DMEXL32qLa9e7"),"週日～五 14:00–22:00・週六公休",""],
+ ["🍛","Dinner · 備案","KitiPanit 餐廳","KitiPanit","กิติพาณิชย์",["grab"],"r",M("asFcx6NHuyCVuqjSA"),"11:30–15:00、17:00–22:00",""],
+ ["🍸","Bar","Bar.San. 酒吧","Bar.San.","",["grab"],"",M("ucyTMGtWSoXZw1VP9"),"每日 18:00–24:00",""]]},
 {d:"12/21",w:"一 Mon",city:"cnx",title:"清邁古城＋夜市",en:"Old City + Night Bazaar",art:"chedi",
- note:"早餐搭Taxi去吃船麵，再搭回旅館附近;走塔佩路慢慢逛去清邁古城。晚上吃完晚餐可逛逛夜市。",
+ note:"早餐搭Grab去吃船麵，再搭回旅館附近;走塔佩路慢慢逛去清邁古城。晚上吃完晚餐可逛逛夜市。",
  items:[
- ["🍜","Breakfast","3泰銖船麵","Kuaytiaw 3 Baht","ก๋วยเตี๋ยว 3 บาท",["taxi"],"r",M("4sWVXwZQ7YYvDaKS6"),"每日 08:00–17:00",""],
+ ["🍜","Breakfast","3泰銖船麵","Kuaytiaw 3 Baht","ก๋วยเตี๋ยว 3 บาท",["grab"],"r",M("4sWVXwZQ7YYvDaKS6"),"每日 08:00–17:00",""],
  ["🛍","Shopping","MADAM CNX","MADAM CNX","",["walk"],"",M("1fVHTMugoj5XKxNF6"),"週一～六 10:00–19:00・週日 16:00–19:00",""],
  ["🛍","Shopping","Rivers & Roads 選物店","Rivers & Roads","",["walk"],"",M("5Y5a9b3ErHPLjVgQ9"),"每日 12:30–19:30",""],
- ["🛍","Shopping","리행 퍼니쳐 家具店","Rihaeng Furniture (Sakhasong)","",["taxi"],"",M("atdLF4WiXja1ao2q6"),"",""],
- ["🛍","Shopping","The Story 木作生活店","The Story Lifestyle","",["taxi"],"",M("KpiT1SvBEaxbFqpW8"),"每日 08:00–21:00（塔佩路店）",""],
+ ["🛍","Shopping","리행 퍼니쳐 家具店","Rihaeng Furniture (Sakhasong)","",["grab"],"",M("atdLF4WiXja1ao2q6"),"",""],
+ ["🛍","Shopping","The Story 木作生活店","The Story Lifestyle","",["grab"],"",M("KpiT1SvBEaxbFqpW8"),"每日 08:00–21:00（塔佩路店）",""],
  ["🥞","Dessert","Roti Pa Dae 煎餅","Roti Pa Dae","โรตีป้าเด",["walk"],"m",M("ePudvVcY2NvEPYC28"),"每日 18:00–24:00",""],
  ["☕","Coffee","GRAPH 咖啡","GRAPH Cafe","",["walk"],"",M("qQecLAD5tzbsAQmF9"),"每日 09:00–17:00",""],
  ["☕","Coffee","Brewginning 咖啡","Brewginning Coffee","",["walk"],"",M("mvEG2NQTTGMESRdFA"),"每日 07:00–19:00",""],
- ["🍚","Lunch","郵局豬腳飯","Post Office Pork Rice","ขาหมูไปรษณีย์",["taxi"],"",M("BdzJJmPsuPwdtPgP8"),"週一～五 17:00–23:00・週六日公休",""],
+ ["🍚","Lunch","郵局豬腳飯","Post Office Pork Rice","ขาหมูไปรษณีย์",["grab"],"",M("BdzJJmPsuPwdtPgP8"),"週一～五 17:00–23:00・週六日公休",""],
  ["🛕","Sightseeing","契迪龍寺（大佛塔寺）","Wat Chedi Luang","วัดเจดีย์หลวง",["walk"],"m",M("VDw4HmDZ8nP7qLJU9"),"每日 05:00–22:30",""],
- ["💆","Massage","Zira 水療","Zira Spa","",["taxi"],"r",M("2VMQwPm3RymLKvFN6"),"每日 10:00–22:00",""],
- ["💆","Massage · 備案","Ziri 按摩","Ziri Massage and Spa","",["taxi"],"r",M("hDSVwKBdmhiBxtdv7"),"每日 10:00–22:00",""],
- ["🍛","Dinner","Jen Moy 在地泰菜","Jen Moy Local Thai Restaurant","",["taxi"],"",M("gE2ngaXHzxmyMPn58"),"週一～六 17:00–22:00・週日公休",""],
- ["🏮","NIGHT MARKET","清邁夜市","Night Bazaar Chiang Mai","ไนท์บาซาร์ เชียงใหม่",["taxi"],"m",M("UHEBwnTbqBRT4WKg9"),"每日 18:00–23:00",""],
+ ["💆","Massage","Zira 水療","Zira Spa","",["grab"],"r",M("2VMQwPm3RymLKvFN6"),"每日 10:00–22:00",""],
+ ["💆","Massage · 備案","Ziri 按摩","Ziri Massage and Spa","",["grab"],"r",M("hDSVwKBdmhiBxtdv7"),"每日 10:00–22:00",""],
+ ["🍛","Dinner","Jen Moy 在地泰菜","Jen Moy Local Thai Restaurant","",["grab"],"",M("gE2ngaXHzxmyMPn58"),"週一～六 17:00–22:00・週日公休",""],
+ ["🏮","NIGHT MARKET","清邁夜市","Night Bazaar Chiang Mai","ไนท์บาซาร์ เชียงใหม่",["grab"],"m",M("UHEBwnTbqBRT4WKg9"),"每日 18:00–23:00",""],
  ["🏮","NIGHT MARKET","阿努善夜市","Anusarn Market","ตลาดอนุสาร",["walk"],"",M("S4cHC4unudEHuSoP9"),"每日 17:00–23:00",""]]},
 {d:"12/22",w:"二 Tue",city:"both",title:"清邁 → 曼谷・暹羅區",en:"Chiang Mai → Bangkok · Siam",art:"plane",
- note:"12PM 退房 → 前往機場搭 15:25 班機。抵達 BKK 約 5PM，帶行李直接 Grab 到飯店。凱賓斯基與 Siam Paragon 相連，晚上逛街都可步行。",
+ note:"12PM 退房 → 13:30 前往機場搭 15:25 班機。抵達 BKK 約 5PM，帶行李直接 Grab 到飯店。凱賓斯基與 Siam Paragon 相連，晚上逛街都可步行。",
  items:[
- ["🍜","Breakfast","Thana Ocha 米粉湯","Thana Ocha Noodle","ธนาโอชา",["taxi"],"",M("3mYmJh4pbDAoht7d9"),"每日 08:00–17:00",""],
- ["🥣","Breakfast · 備案","Tai Toon Baan 粥店","Tai Toon Baan","ใต้ถุนบ้าน",["walk","taxi"],"",M("9G8GsCyVNpjqi4Um8"),"每日 06:30–14:00",""],
- ["🥣","Breakfast · 備案","Nai To 粥店","Nai To Congee Shop","",["taxi"],"",M("ZPyDfKsRuQBPwWiq9"),"07:00–14:00・週日公休",""],
- ["🧳","12:00","飯店退房 → 清邁機場","Hotel check-out → CNX Airport","",["taxi"],"","","",""],
+ ["🍜","Breakfast","Thana Ocha 米粉湯","Thana Ocha Noodle","ธนาโอชา",["grab"],"",M("3mYmJh4pbDAoht7d9"),"每日 08:00–17:00",""],
+ ["🥣","Breakfast · 備案","Tai Toon Baan 粥店","Tai Toon Baan","ใต้ถุนบ้าน",["walk","grab"],"",M("9G8GsCyVNpjqi4Um8"),"每日 06:30–14:00",""],
+ ["🥣","Breakfast · 備案","Nai To 粥店","Nai To Congee Shop","",["grab"],"",M("ZPyDfKsRuQBPwWiq9"),"07:00–14:00・週日公休",""],
+ ["🧳","12:00","飯店退房 → 清邁機場","Hotel check-out → CNX Airport","",["car"],"","","接機時間已預約 13:30",""],
  ["✈","15:25","清邁 → 曼谷","CNX → BKK","",["fly"],"b","","抵達 16:45",""],
+ ["🚙","Airport Pickup", "機場接機","",["car"],"","","",""],
  ["🏨","17:30","入住暹羅凱賓斯基","Check-in Siam Kempinski","",["grab"],"","","",""],
  ["🍛","Dinner","打拋豬","EASY! buddy Siam Center","",["walk"],"",M("FjL9gBmG3qAnQuGVA"),"每日 10:00–21:15",""],
  ["🛍","Shopping","暹羅百麗宮","Siam Paragon","สยามพารากอน",["walk"],"",M("u7PVJt2BrLKW8hX89"),"每日 10:00–22:00",""],
@@ -391,13 +394,13 @@ const days=[
  ["🍸","Bar","Bar Us 酒吧","Bar Us","",["grab"],"",M("9ZXDXgcEzUFFqEna8"),"週日～四 18:00–24:00・週五六 18:00–01:00",""],
  ["🍸","Bar","Dry Wave 酒吧","Dry Wave Cocktail Studio","",["grab"],"",M("ymaxxJgeU5QxXfgY7"),"每日 19:00–1:00",""]]},
 {d:"12/27",w:"日 Sun",city:"bkk",title:"澎蓬・素坤逸・旅遊結束",en:"Phrom Phong / Sukhumvit · End of Trip",art:"home",
- note:"Rose 11AM 前出發去機場（SQ721 13:35）；Peter、Noreen、Darian 午餐後再前往機場。往 BKK 機場帶行李建議 Grab／Taxi。",
+ note:"Rose 10:30AM 前出發去機場（SQ721 13:35）；Peter、Noreen、Darian 午餐後再前往機場。往 BKK 機場已約送機。",
  items:[
  ["🍜","Breakfast","榮泰米粉湯","Rung Rueang Pork Noodles","รุ่งเรือง ก๋วยเตี๋ยวหมู",["walk"],"m",M("ww7RQt79xFrnsuuT9"),"每日 08:00–17:00",""],
  ["🍡","Snack","Kanom Siam 香蘭小點（Emsphere）","kanomsiam Emsphere","ขนมสยาม เอ็มสเฟียร์",["walk"],"",M("jckDR84RCNum9yS79"),"每日 10:00–21:30",""],
- ["🧳","11:00","Rose 前往機場","Rose → BKK Airport","",["grab"],"","","",""],
+ ["🧳","10:30","Rose 前往機場","Rose → BKK Airport","",["grab"],"","","",""],
  ["🍽","Lunch","Peter、Noreen、Darian 午餐","Lunch before airport","",["walk"],"","","",""],
- ["🧳","14:00","Peter, Noreen & Darian 前往機場","Peter, Noreen & Darian → BKK Airport","",["grab"],"","","",""]]}
+ ["🧳","14:00","Peter, Noreen & Darian 前往機場","Peter, Noreen & Darian → BKK Airport","",["car"],"","","接機時間已預約 13:50",""]]}
 ];
 const backups={
  cnx:[["☕","Coffee","Roast8ry 咖啡實驗室","Roast8ry Coffee Lab","โรสเทอรี่ แล็บ",["taxi"],"",M("i4UtdifFuoUB3QeK7"),"每日 08:00–17:00",""],
@@ -409,11 +412,13 @@ const backups={
 
  bkk:[["🍳","Thai Food","Aunty's Wok 家常熱炒（帕耶泰）","Aunty's Wok PhayaThai","",["bts"],"",M("9NNVvi6yXLmoMkm77"),"週一～六 08:30–19:00・週日公休",""],
       ["🥘","Thai Hot Pot","Yum Yum 泰式陶鍋火鍋","Yum yum","",["bts"],"",M("Y3i3TE3BzrGYBXqV8"),"週日～四 17:00–1:00・週五六 17:00–03:00",""],
-      ["🍛","Crab Omelette","Sam Lor 餐廳","Sam Lor","สามล้อ",["grab"],"r",M("KXjpThEfUbEDEEXE6"),"18:00–22:30（週六日加開 11:00–13:30）・週二公休",""],
+      ["🦀","Crab Omelette","Sam Lor 餐廳","Sam Lor","สามล้อ",["grab"],"r",M("KXjpThEfUbEDEEXE6"),"18:00–22:30（週六日加開 11:00–13:30）・週二公休",""],
       ["🌙","Late-Night","Ocharos 宵夜","Ocharos Munkong","",["grab"],"",M("KAc7fgz9diExJhyv9"),"每日 17:00–02:30",""],
-      ["🦐","Crab Rice","MAHASAMUT 海鮮（素坤逸）","MAHASAMUT Sukhumvit","มาหาสมุทร สุขุมวิท",["bts"],"",M("hgerweF7Azg9Nowt9"),"每日 10:00–21:00",""],
-      ["🍜","Ramen","Yume拉麵","Yume Ramen","",["bts"],"",M("B3b4qFptFW3BCYCK9"),"週一～五 11:00–22:00 (15:00–17:00休息・週六日 11:00–22:00",""],
+      ["🦀","Crab Rice","MAHASAMUT 海鮮（素坤逸）","MAHASAMUT Sukhumvit","มาหาสมุทร สุขุมวิท",["bts"],"",M("hgerweF7Azg9Nowt9"),"每日 10:00–21:00",""],
+      ["🍜","Ramen","Yume 拉麵","Yume Ramen","",["bts"],"",M("B3b4qFptFW3BCYCK9"),"週一～五 11:00–22:00 (15:00–17:00休息・週六日 11:00–22:00",""],
       ["🛶","Morning","拉瑪庸水上市場","Khlong Lad Mayom Floating Market","ตลาดน้ำคลองลัดมะยม",["grab"],"m",M("kX5chfvAQx192MW86"),"僅週六日 08:00–17:00",""],
+      ["🍳","Pad Kaprao","Phed Mark 打拋豬","Phed Mark","เผ็ดมาร์ค",["bts"],"",M("VtEH434kULVUmapD6"),"每日 10:00–19:00",""],
+      ["🍳","Pad Thai","Thep PadThai 泰式炒麵","Thep PadThai","เทพ ผัดไทย",["walk"],"",M("CrLMxmmHgBUFmDwp8"),"每日 10:00–20:00",""],
       ["🐟","Lunch","Mae Klong 魚頭火鍋","Mae Klong Hua Pla Mo Fai","แม่กลองหัวปลาหม้อไฟ",["grab"],"",M("ZunWAQZg484GiAkY9"),"每日 11:00–21:00",""],
       ["☕","Coffee","Rolling Roasters 咖啡","Rolling Roasters","โรลลิ่ง โรสเตอร์",["grab"],"",M("BRbiEQozgqkcjXKQ9"),"每日 07:00–17:00",""]]
 };
